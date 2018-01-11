@@ -66,13 +66,13 @@
 	if ([self.target respondsToSelector:self.selector]) {
 		if (self.object1 == nil && self.object2 == nil) {
             // TODO when Apple has a better mechanism for masking the "PerformSelector may cause a leak because its selector is unknown" warning, use it
-            objc_msgSend(self.target, self.selector);
+            ((void (*)(id, SEL)) objc_msgSend)(self.target, self.selector);
 		} else if (self.object2 == nil) {
             // TODO when Apple has a better mechanism for masking the "PerformSelector may cause a leak because its selector is unknown" warning, use it
-            objc_msgSend(self.target, self.selector, self.object1);
+            ((void (*)(id, SEL, id)) objc_msgSend)(self.target, self.selector, self.object1);
 		} else {
             // TODO when Apple has a better mechanism for masking the "PerformSelector may cause a leak because its selector is unknown" warning, use it
-            objc_msgSend(self.target, self.selector, self.object1, self.object2);
+            ((void (*)(id, SEL, id, id)) objc_msgSend)(self.target, self.selector, self.object1, self.object2);
 		}
 	}
 }
